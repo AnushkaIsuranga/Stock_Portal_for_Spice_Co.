@@ -32,7 +32,7 @@ CREATE TABLE `order_table` (
   `User_ID` int(10) NOT NULL,
   `Date` date NOT NULL,
   `Quantity` int(50) NOT NULL,
-  `Price_Rs.` int(50) NOT NULL,
+  `Price_Rs` int(50) NOT NULL,
   `Recite` blob NOT NULL,
   `Add_Line1` varchar(50) NOT NULL,
   `Add_Line2` varchar(50) NOT NULL
