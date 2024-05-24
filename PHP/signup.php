@@ -37,15 +37,17 @@
                 // Create an encrypted password
                 $pass_hash = password_hash($password, PASSWORD_DEFAULT);
 
-                // Query execution
-                $stmt = $conn->prepare("INSERT INTO users_table (Email, F_Name, L_Name, U_Name, NIC, Tel_No, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("sssssss", $email, $fname, $lname, $uname, $nic, $telNo, $pass_hash);
+                require 'otp_verification.php';
 
-                if ($stmt->execute()) {
-                    echo "<script>alert('Sign-up Success!')</script>";
-                } else {
-                    echo "<script>alert('Error occurred during sign-up.')</script>";
-                }
+                // // Query execution
+                // $stmt = $conn->prepare("INSERT INTO users_table (Email, F_Name, L_Name, U_Name, NIC, Tel_No, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                // $stmt->bind_param("sssssss", $email, $fname, $lname, $uname, $nic, $telNo, $pass_hash);
+
+                // if ($stmt->execute()) {
+                //     echo "<script>alert('Sign-up Success!')</script>";
+                // } else {
+                //     echo "<script>alert('Error occurred during sign-up.')</script>";
+                // }
             }
         }
     }
