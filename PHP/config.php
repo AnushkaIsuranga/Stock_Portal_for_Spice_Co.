@@ -3,7 +3,7 @@
     $host = 'localhost';
     $username = 'root';
     $password = '';
-    $database = 'papper_stock';
+    $database = 'spiceco';
 
     //Create Connection
     $conn = new mysqli($host, $username, $password, $database);

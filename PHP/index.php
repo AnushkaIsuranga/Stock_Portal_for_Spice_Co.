@@ -116,6 +116,7 @@
 
         <h1>Welcome, <?php echo htmlspecialchars($user_row['U_Name']); ?></h1>
         <a href="logout.php">Logout</a><br><br>
+        <button><a href="place_order.php">Place Order</a></button>
 
         <select id="year"></select>
         <select id="month"></select>
