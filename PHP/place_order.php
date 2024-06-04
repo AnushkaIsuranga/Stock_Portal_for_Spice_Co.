@@ -56,6 +56,7 @@
               // Execute query
               if ($conn->query($sql) === TRUE) {
                   echo "<script>alert('Order placed successfully! Your order ID is: " . $conn->insert_id . "');window.location.href = 'index.php';</script>";
+                  //Place SMS message forward here
                   exit(); // Ensure script stops executing after redirect
               } else {
                   $errorMsg = "Error: " . $conn->error;

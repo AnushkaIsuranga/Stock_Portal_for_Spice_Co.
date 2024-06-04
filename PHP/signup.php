@@ -37,17 +37,17 @@
                 // Create an encrypted password
                 $pass_hash = password_hash($password, PASSWORD_DEFAULT);
 
-                require 'otp_verification.php';
+                // require 'otp_verification.php';
 
-                // // Query execution
-                // $stmt = $conn->prepare("INSERT INTO users_table (Email, F_Name, L_Name, U_Name, NIC, Tel_No, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                // $stmt->bind_param("sssssss", $email, $fname, $lname, $uname, $nic, $telNo, $pass_hash);
+                // Query execution
+                $stmt = $conn->prepare("INSERT INTO users_table (Email, F_Name, L_Name, U_Name, NIC, Tel_No, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssssss", $email, $fname, $lname, $uname, $nic, $telNo, $pass_hash);
 
-                // if ($stmt->execute()) {
-                //     echo "<script>alert('Sign-up Success!')</script>";
-                // } else {
-                //     echo "<script>alert('Error occurred during sign-up.')</script>";
-                // }
+                if ($stmt->execute()) {
+                    echo "<script>alert('Sign-up Success!')</script>";
+                } else {
+                    echo "<script>alert('Error occurred during sign-up.')</script>";
+                }
             }
         }
     }
@@ -63,7 +63,7 @@
 <body>
     <div class="mx-auto h-screen w-full sm:w-1/2 right-0 bg-white opacity-80 absolute items-center justify-center">
         <div class="image">
-            <img src="Styles/Images/p3.png" alt="logo">
+            <img src="/Styles/Images/p3.png" alt="logo">
         </div>
         <div class="sm:text-sm" style="font-family:'Inlander-Smooth';">
             Sign Up

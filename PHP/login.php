@@ -28,10 +28,10 @@
             } else {
                 echo "<script>alert('Wrong Password.');</script>";
             }
-        } else if (($name_email === 'admin' || $name_email === 'admin@example.com') && $password === 'admin.123') {
+        } else if (($name_email === 'admin' || $name_email === 'admin@123.com') && $password === 'admin.123') {
             header("Location: admin.php");
             exit();
-        } else if (($name_email === 'manager' || $name_email === 'manager@example.com') && $password === 'manager.123') {
+        } else if (($name_email === 'manager' || $name_email === 'manager@123.com') && $password === 'manager.123') {
             header("Location: manager.php");
             exit();
         } else{
