@@ -2,16 +2,22 @@
 require('config.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Setting up variable with inputs passed through the AJAX
     $userId = isset($_POST['userId']) ? $_POST['userId'] : '';
-    $year = isset($_POST['year']) ? $_POST['year'] : '';
-    $month = isset($_POST['month']) ? $_POST['month'] : '';
-    $date = isset($_POST['date']) ? $_POST['date'] : '';
+    $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : '';
+    $year = isset($_POST['year']) ? $_POST['year'] : '0';
+    $month = isset($_POST['month']) ? $_POST['month'] : '0';
+    $date = isset($_POST['date']) ? $_POST['date'] : '0';
 
     // Construct SQL query to delete records based on the given criteria
     $sql = "DELETE FROM order_table WHERE 1=1";
 
     if (!empty($userId)) {
         $sql .= " AND User_ID = ?";
+    }
+
+    if (!empty($orderId)) {
+        $sql .= " AND Order_ID = ?";
     }
 
     if ($year != '0') {
@@ -36,6 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($userId)) {
             $paramTypes .= 'i';
             $params[] = $userId;
+        }
+
+        if (!empty($orderId)) {
+            $paramTypes .= 'i';
+            $params[] = $orderId;
         }
 
         if ($year != '0') {

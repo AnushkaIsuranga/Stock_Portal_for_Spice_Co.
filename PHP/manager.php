@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Fetch new orders that need verification
 $sql = "SELECT * FROM order_table WHERE needs_verification = TRUE";
@@ -15,6 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify_order"])) {
     } else {
         echo "<script>alert('Error updating record: " . $conn->error . "');</script>";
     }
+}
+
+if (!isset($_SESSION["available_stock"])) {
+    $_SESSION["available_stock"] = 0;
 }
 ?>
 
@@ -162,6 +169,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify_order"])) {
     <h1>Welcome, Manager.</h1>
     <a href="logout.php">Logout</a><br><br>
 
+    <!-- Available stock update panale -->
+    <h2>Available Stock</h2>
+    <p><?php echo $_SESSION["available_stock"]; ?> kg</p>
+
+    <!-- Order details panale -->
     <h3>Order Details</h3>
 
     <label for="txtUserID_SearchOrder">Enter User ID to select the order list:</label><br>
@@ -170,6 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify_order"])) {
     <select id="monthOrder"></select>
     <select id="dateOrder"></select>
 
+    <!-- Order table -->
     <table>
         <thead>
             <tr>
@@ -188,11 +201,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify_order"])) {
         </tbody>
     </table><br><br>
 
+    <!-- User details search panale -->
     <h3>User Details</h3>
 
     <label for="txtUserID_SearchUser">Enter User ID to select the user list:</label><br>
     <input type="text" name="userIdSearchUser" id="txtUserID_SearchUser"><br><br>
 
+    <!-- User table -->
     <table>
         <thead>
             <tr>
@@ -210,7 +225,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify_order"])) {
         </tbody>
     </table>
 
+    <!-- Order validation panal -->
     <h2>New Orders That Need Verification:</h2>
+
     <?php
     if ($result->num_rows > 0) {
         echo "<table border='1'>";

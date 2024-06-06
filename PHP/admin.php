@@ -1,7 +1,33 @@
 <?php
 require 'config.php';
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// if (!isset($_SESSION["is_admin"]) || !$_SESSION["is_admin"]) {
+//     header("Location: login.php");
+//     exit();
+// }
+
+// Initialize available stock if not set
+if (!isset($_SESSION["available_stock"])) {
+    $_SESSION["available_stock"] = 0;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["update_stock"])) {
+        $new_stock = (int)$_POST["new_stock"];
+        if ($new_stock >= 0) {
+            $_SESSION["available_stock"] = $new_stock;
+            $successMsg = "Stock updated successfully!";
+        } else {
+            $errorMsg = "Invalid stock quantity.";
+        }
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +37,9 @@ session_start();
     <title>Administrator</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Settitng elemets to variables
+            // Setting elements to variables
             const searchUserIDOrder = document.getElementById('txtUserID_SearchOrder');
+            const searchOrderIDOrder = document.getElementById('txtOrderID_SearchOrder');
             const yearSelectOrder = document.getElementById('yearOrder');
             const monthSelectOrder = document.getElementById('monthOrder');
             const dateSelectOrder = document.getElementById('dateOrder');
@@ -20,7 +47,7 @@ session_start();
 
             const searchUserIDUser = document.getElementById('txtUserID_SearchUser');
 
-            // Initialize year, month, and date selects  for order filtering
+            // Initialize year, month, and date selects for order filtering
             yearSelectOrder.innerHTML = '<option value="0">All Years</option>';
             for (let year = 2023; year <= 4000; year++) {
                 const option = document.createElement('option');
@@ -47,7 +74,8 @@ session_start();
 
             // Filtering order table records
             function filterDataOrder() {
-                var userID = searchUserIDOrder.value;
+                const userID = searchUserIDOrder.value;
+                const orderID = searchOrderIDOrder.value;
                 const selectedYear = yearSelectOrder.value;
                 const selectedMonth = monthSelectOrder.value;
                 const selectedDate = dateSelectOrder.value;
@@ -62,7 +90,7 @@ session_start();
                 };
                 xhttp.open("POST", "filter_data_admin_order.php", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.send("userId=" + userID + "&year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
+                xhttp.send("userId=" + userID + "&orderId=" + orderID + "&year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
             }
 
             // Updating order table
@@ -92,7 +120,7 @@ session_start();
 
             // Filtering user table records
             function filterDataUser() {
-                var userID = searchUserIDUser.value;
+                const userID = searchUserIDUser.value;
 
                 const xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -135,6 +163,7 @@ session_start();
             function deleteFilteredDataOrder() {
                 if (confirm('Are you sure you want to delete the filtered records?')) {
                     const userId = searchUserIDOrder.value;
+                    const orderId = searchOrderIDOrder.value;
                     const selectedYear = yearSelectOrder.value;
                     const selectedMonth = monthSelectOrder.value;
                     const selectedDate = dateSelectOrder.value;
@@ -154,12 +183,13 @@ session_start();
                     };
                     xhttp.open("POST", "delete_records_order.php", true);
                     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhttp.send("userId=" + userId + "&year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
+                    xhttp.send("userId=" + userId + "&orderId=" + orderId + "&year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
                 }
             }
 
-            // Setting to run filterData functions when given elements change
+            // Setting to run filterData & deleteFilteredData functions when given elements change
             searchUserIDOrder.addEventListener('change', filterDataOrder);
+            searchOrderIDOrder.addEventListener('change', filterDataOrder);
             yearSelectOrder.addEventListener('change', filterDataOrder);
             monthSelectOrder.addEventListener('change', filterDataOrder);
             dateSelectOrder.addEventListener('change', filterDataOrder);
@@ -171,20 +201,56 @@ session_start();
             filterDataUser();
         });
     </script>
+    <style>
+        #msg{
+            animation: cssAnimation 0s ease-in 2s forwards;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes cssAnimation {
+            to {
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome, Administrator.</h1>
     <a href="logout.php">Logout</a><br><br>
 
-    <h3>Order Details</h3>
+    <!-- Display success or error messages -->
+    <?php if (isset($successMsg)) : ?>
+        <p id="msg" style="color: green;"><?php echo $successMsg; ?></p>
+    <?php endif; ?>
 
+    <?php if (isset($errorMsg)) : ?>
+        <p id="msg" style="color: red;"><?php echo $errorMsg; ?></p>
+    <?php endif; ?>
+
+    <!-- Available stock update panale -->
+    <h2>Available Stock</h2>
+    <form action="admin.php" method="post">
+        <label>Current Stock: <?php echo $_SESSION["available_stock"]; ?> kg</label><br><br>
+        <label for="new_stock">New Stock (in kg):</label>
+        <input type="number" id="new_stock" name="new_stock" min="0" required>
+        <button type="submit" name="update_stock">Update Stock</button>
+    </form>
+
+    <!-- Order details panale -->
+    <h3>Order Details</h3>
     <label for="txtUserID_SearchOrder">Enter User ID to select the order list:</label><br>
     <input type="text" name="userIdSearchOrder" id="txtUserID_SearchOrder"><br><br>
+    <label for="txtOrderID_SearchOrder">Enter Order ID to select the order list:</label><br>
+    <input type="text" name="orderIdSearchOrder" id="txtOrderID_SearchOrder"><br><br>
     <select id="yearOrder"></select>
     <select id="monthOrder"></select>
     <select id="dateOrder"></select>
     <button id="deleteButtonOrder">Delete Filtered Orders</button><br><br>
 
+    <!-- Order table -->
     <table>
         <thead>
             <tr>
@@ -203,11 +269,12 @@ session_start();
         </tbody>
     </table><br><br>
 
+    <!-- User details search panale -->
     <h3>User Details</h3>
-
     <label for="txtUserID_SearchUser">Enter User ID to select the user list:</label><br>
     <input type="text" name="userIdSearchUser" id="txtUserID_SearchUser"><br><br>
 
+    <!-- User table -->
     <table>
         <thead>
             <tr>
