@@ -1,0 +1,42 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 10;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 15vh;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.navbar a.right {
+  float: right;
+}
+
+.header{
+  display: block;
+  margin-top: -24px;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./Images/p5.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#welcome{
+  margin: 50px;
+}

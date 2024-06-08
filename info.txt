@@ -1,1 +1,0 @@
-input.css & output.css are tailwind css files. If using tailwind, import only output.css file to the htmls. Sign-up.css is a normal css file.
