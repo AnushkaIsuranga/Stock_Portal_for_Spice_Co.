@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="Styles/Images/p3.jpg">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+        <style>
+            .scrollable-table {
+                max-height: 400px; /* Adjust as needed */
+                overflow-y: auto;
+                display: block;
+            }
+        </style>
+        <title>Order History</title>
+    </head>
+    <body>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                //Gathering elements into variables
+                const yearSelect = document.getElementById('year');
+                const monthSelect = document.getElementById('month');
+                const dateSelect = document.getElementById('date');
+
+                // Initialize year dropdown menu
+                yearSelect.innerHTML = '<option value="0">All Years</option>';
+                for (let year = 2023; year <= 4000; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.text = year;
+                    yearSelect.appendChild(option);
+                }
+
+                // Initialize month dropdown menu
+                monthSelect.innerHTML = '<option value="0">All Months</option>';
+                for (let month = 1; month <= 12; month++) {
+                    const option = document.createElement('option');
+                    option.value = month;
+                    option.text = month;
+                    monthSelect.appendChild(option);
+                }
+
+                // Initialize date dropdown menu
+                dateSelect.innerHTML = '<option value="0">All Dates</option>';
+                for (let date = 1; date <= 31; date++) {
+                    const option = document.createElement('option');
+                    option.value = date;
+                    option.text = date;
+                    dateSelect.appendChild(option);
+                }
+
+                // Function to filter data based on selections
+                function filterData() {
+                    const selectedYear = yearSelect.value;
+                    const selectedMonth = monthSelect.value;
+                    const selectedDate = dateSelect.value;
+
+                    // Create an XMLHttpRequest object to automatically refresh the table with selected values
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState === 4 && this.status === 200) {
+                            const filteredData = JSON.parse(this.responseText);
+                            updateTable(filteredData);
+                        }
+                    };
+                    xhttp.open("POST", "filter_data.php", true);
+                    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhttp.send("year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
+                }
+
+                // Function to update the table with filtered data
+                function updateTable(data) {
+                    const tableBody = document.getElementById("tableBody");
+                    tableBody.innerHTML = "";
+
+                    if (data.length === 0) {
+                        tableBody.innerHTML = "<tr><td colspan='4'>No records found based on your filter selection.</td></tr>";
+                    } else {
+                        for (const row of data) {
+                            const tableRow = document.createElement("tr");
+                            tableRow.innerHTML = `
+                                <td>${row["Order_ID"]}</td>
+                                <td>${row["Date"]}</td>
+                                <td>${row["Quantity"]}</td>
+                                <td>${row["Price_Rs"]}</td>
+                            `;
+                            tableBody.appendChild(tableRow);
+                        }
+                    }
+                }
+
+                // Call filterData on combobox selection change
+                yearSelect.addEventListener('change', filterData);
+                monthSelect.addEventListener('change', filterData);
+                dateSelect.addEventListener('change', filterData);
+
+                // Initial load of all data
+                filterData();
+            });
+        </script>
+
+        <h1>Welcome, <?php echo $_SESSION['user_name']; ?></h1>
+        <a href="logout.php">Logout</a><br><br>
+        <form action="place_order.php" method="post">
+            <button type="submit">Place Order</button>
+        </form>
+
+        <select id="year"></select>
+        <select id="month"></select>
+        <select id="date"></select>
+
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Table content will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

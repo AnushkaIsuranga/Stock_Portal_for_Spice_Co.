@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Styles/Images/p3.jpg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <title>Place Order</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const quantityInput = document.getElementById('txtqt');
+            const priceDisplay = document.getElementById('priceDisplay');
+
+            // Dynamically displaying the price as quantity changes
+            quantityInput.addEventListener('input', function() {
+                const quantity = parseInt(this.value);
+                const price = quantity * 2700;
+                priceDisplay.textContent = price;
+            });
+        });
+    </script>
+    <style>
+        #msg {
+            animation: cssAnimation 0s ease-in 5s forwards;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes cssAnimation {
+            to {
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Place Order</h1>
+    <!-- Display Message -->
+    <?php if (isset($errorMsg)) : ?>
+        <p id="msg" style="color: red;"><?php echo $errorMsg; ?></p>
+    <?php endif; ?>
+
+    <!-- Order detail form -->
+    <form id="orderForm" action="place_order.php" method="post" enctype="multipart/form-data">
+        <label for="organization">Organization</label>
+        <input type="text" name="organization" id="txtorg" required><br><br>
+        <label for="quantity">Quantity (kg)</label>
+        <input type="number" name="quantity" id="txtqt" min="1" max="<?php echo $available_stock; ?>" required><br><br>
+        <label for="address1">Address Line 1</label>
+        <input type="text" name="address1" id="txtadd1" required><br><br>
+        <label for="address2">Address Line 2</label>
+        <input type="text" name="address2" id="txtadd2" required><br><br>
+        <label for="recite">Recite</label>
+        <input type="file" name="recite" id="imprecite" accept=".jpg,.jpeg,.png" required><br><br>
+        <label for="price">Price (Rs.):</label>
+        <span id="priceDisplay">0</span><br><br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</body>
+</html>
