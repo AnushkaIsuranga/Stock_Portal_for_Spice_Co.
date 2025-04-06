@@ -10,6 +10,7 @@ $response = [];
 
 // Get values from DOM inputs
 $enteredUserID = isset($_POST['userId']) ? $_POST['userId'] : '';
+$enteredOrderID = isset($_POST['orderId']) ? $_POST['orderId'] : '';
 $selectedYear = isset($_POST['year']) ? $_POST['year'] : '0';
 $selectedMonth = isset($_POST['month']) ? $_POST['month'] : '0';
 $selectedDate = isset($_POST['date']) ? $_POST['date'] : '0';
@@ -18,6 +19,12 @@ $selectedDate = isset($_POST['date']) ? $_POST['date'] : '0';
 $sql = "SELECT * FROM order_table WHERE 1=1";
 $params = [];
 $paramTypes = '';
+
+if (!empty($enteredOrderID)) {
+    $sql .= " AND Order_ID = ?";
+    $params[] = $enteredOrderID;
+    $paramTypes .= 's';
+}
 
 if (!empty($enteredUserID)) {
     $sql .= " AND User_ID = ?";

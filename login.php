@@ -33,7 +33,7 @@ if (isset($_POST["submit"])) {
             }
             exit(); 
         } else {
-            echo "<script>alert('Wrong Password.');</script>";
+            $errorMsgPass = "Wrong password. Please try again.";
         }
     } else {
         // Check hardcoded credentials for admin and manager
@@ -48,7 +48,7 @@ if (isset($_POST["submit"])) {
             header("Location: manager.php");
             exit();
         } else {
-            echo "<script>alert('Name or Email not found.');</script>";
+            $errorMsgEmail = "Your username/email is incorrect. Please try again.";
         }
     }
 

@@ -1,0 +1,116 @@
+.background-image {
+    background-image: url('Images/p5.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+@font-face {
+  font-family: Inlander-Smooth;
+  src: url('fonts/INLANDER SMOOTH.TTF');
+}
+
+@font-face {
+  font-family: inder;
+  src: url('Styles/fonts/Inder-Regular.ttf');
+}
+#headtxt{
+    font-family: Inlander-Smooth;
+    font-size: 40px;
+    font-weight: bold;
+}
+#formwid{
+    width: 50%;
+    margin: 0 auto; /* Center the text box */
+}
+.text-center .mb-3 {
+    display: flex;
+    justify-content: center;
+}
+#submitButton{
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 1em;
+    margin-right: 3em;
+    font-family: inder;
+}
+#submitButton:hover {
+    background-color: #6b291c;
+}
+/* sign up and login in main elements */
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .container-fluid {
+    flex: 1;
+    height: 100%;
+  }
+  .row {
+    height: 100%;
+  }
+  .col-md-6 {
+    height: 100%;
+  }
+  @font-face {
+    font-family: Inlander-Smooth;
+    src: url('fonts/INLANDER SMOOTH.TTF');
+  }
+
+  /* Ensure navbar links align to the right */
+  .navbar-nav {
+    margin-left: auto;
+  }
+  .navbar-logo{
+    height: 150px;
+  }
+.navbar-custom h4 {
+  font-family: Inlander-Smooth;
+  font-size: 40px;
+}
+.navbar-custom {
+    background-color: #715D29;
+}
+.bg-custom {
+  background-color: #715D29;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: Inlander-Smooth;
+  color: white;
+}
+
+.navbar-custom-fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #715D29; /* Adding a background color for visibility */
+  width: 100%;
+  background-image: url('Images/perahara.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar-custom-fixed-bottom .container-fluid {
+  justify-content: flex-end; /* Align items to the right */
+  padding: 40px 20px; /* Adding padding to increase navbar size */
+}
+
+.navbar-custom-fixed-bottom .navbar-text {
+  color: white; /* Text color */
+  font-size:  20px;
+}
+.navbar-text a {
+  text-decoration: none; /* Remove underline from links */
+}
+.logoo{
+  height: 30px;
+}

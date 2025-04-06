@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="Styles/Images/p3.jpg">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <link rel="stylesheet" href="Styles/theme.css">
+    <link rel="stylesheet" href="Styles/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <title>Place Order</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -14,12 +15,16 @@
             // Dynamically displaying the price as quantity changes
             quantityInput.addEventListener('input', function() {
                 const quantity = parseInt(this.value);
-                const price = quantity * 2700;
+                const price = isNaN(quantity) ? 0 : quantity * 2700;
                 priceDisplay.textContent = price;
             });
         });
     </script>
     <style>
+        body{
+            font-family: inder;
+        }
+
         #msg {
             animation: cssAnimation 0s ease-in 5s forwards;
             animation-fill-mode: forwards;
@@ -33,30 +38,149 @@
                 visibility: hidden;
             }
         }
+        
+        @font-face {
+            font-family: inder;
+            src: url('./Styles/fonts/Inder-Regular.ttf');
+        }
+
+        .scrollable-table {
+            max-height: 400px; /* Adjust as needed */
+            overflow-y: auto;
+            display: block;
+        }
+
+        #footer {
+            background-image: url(/Styles/Images/perahara.png);
+            height: 200px;
+            margin-top: auto;
+            text-align: right;
+            padding-right: 30px;
+            margin-right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0;
+        }
+
+        #logo{
+            height: 150px;
+        }
+
+
+        @media(max-width: 700px){
+
+            #logo{
+                height: 100px;
+            }
+
+            #submitButton{
+                height: 30px;
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Place Order</h1>
-    <!-- Display Message -->
-    <?php if (isset($errorMsg)) : ?>
-        <p id="msg" style="color: red;"><?php echo $errorMsg; ?></p>
-    <?php endif; ?>
+    <script src="Styles/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Order detail form -->
-    <form id="orderForm" action="place_order.php" method="post" enctype="multipart/form-data">
-        <label for="organization">Organization</label>
-        <input type="text" name="organization" id="txtorg" required><br><br>
-        <label for="quantity">Quantity (kg)</label>
-        <input type="number" name="quantity" id="txtqt" min="1" max="<?php echo $available_stock; ?>" required><br><br>
-        <label for="address1">Address Line 1</label>
-        <input type="text" name="address1" id="txtadd1" required><br><br>
-        <label for="address2">Address Line 2</label>
-        <input type="text" name="address2" id="txtadd2" required><br><br>
-        <label for="recite">Recite</label>
-        <input type="file" name="recite" id="imprecite" accept=".jpg,.jpeg,.png" required><br><br>
-        <label for="price">Price (Rs.):</label>
-        <span id="priceDisplay">0</span><br><br>
-        <input type="submit" name="submit" value="Submit">
-    </form>
+    <div class="row-fluid">
+        <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <div class="col-4">
+                    <a href="main.html"><img src="Styles/Images/p3.png" id="logo" class="rounded navbar-logo" alt="Dilthira pepper logo"></a>
+                </div>
+                <div class="col-4" style="text-align: center; font-size: 4vw;">
+                    <h4 style="color: white; font-size: 4vw;">Place Your Order</h4>
+                </div>
+                <div class="col-4" style="text-align: right; margin-right: -30px;">
+                    <a href="logout.php">
+                        <button type="button" class="btn btn-primary" id="submitButton" style="border-radius: 20px;">Log-Out</button>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row-fluid">
+        <div class="container-fluid" style="margin: auto; margin-top: 150px;">
+            <!-- Display Message -->
+            <?php if (isset($errorMsg)) : ?>
+                <p id="msg" style="color: red;"><?php echo $errorMsg; ?></p>
+            <?php endif; ?>
+        
+            <!-- Order detail form -->
+            <div class="row-fluid" style="justify-content: center; text-align: center;">
+                <div class="row">
+                    <div class="col-md" style="justify-content: center; text-align: left; padding: 50px;">
+                        <form id="orderForm" action="place_order.php" method="post" enctype="multipart/form-data">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="organization">Organization</label>
+                                    <input type="text" name="organization" id="txtorg" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="quantity">Quantity (kg)</label>
+                                    <input type="number" name="quantity" id="txtqt" min="1" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address1">Address Line 1</label>
+                                <input type="text" name="address1" id="txtadd1" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address2">Address Line 2</label>
+                                <input type="text" name="address2" id="txtadd2" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="recite">Recite</label>
+                                <input type="file" name="recite" id="imprecite" accept=".jpg,.jpeg,.png" class="form-control" required>
+                            </div>
+                                <button type="submit" name="submit" value="submit" class="form-control" style="background-color: black; color: white;">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-md" style="padding: 50px;  margin-bottom: 60px;">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="text-center">
+                                        <img src="Styles/Images/p4.png" class="rounded" alt="pepper with pepper leaves logo" >
+                                    </div>
+                                    <div class="col p-6 border bg-custom" style="text-align: center;">
+                                        <label for="price">Price (Rs.):</label>
+                                        <span id="priceDisplay">0</span>
+                                    </div>
+                                    <div class="col" style="text-align: center;">
+                                        1Kg = LKR 2700/=
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row-fluid">
+        <nav class="navbar navbar-expand-lg navbar-custom" id="footer">
+            <div class="container-fluid d-flex justify-content-between align-items-center" style="text-align: right; padding-right: 30px;">
+                <div class="col" style="font-size: 25px; font-weight: bolder; color: white;">Contact Us<br>
+                <a href="mailto:your-email@example.com" style="color: white; font-size: 15px; text-decoration: none;">
+                    dilthira@gmail.com
+                    <img src="Styles/Images/icons/mail-outline.svg" alt="email" class="logoo">
+                </a>
+                <br>
+                <a href="tel:+9434567890" style="color: white; font-size: 15px; text-decoration: none;">
+                    +94 345 67890
+                    <img src="Styles/Images/icons/call-outline.svg" alt="call" class="logoo">
+                </a>
+                <br>
+                <a href="https://www.facebook.com/yourprofile" target="_blank" style="color: white; font-size: 15px; text-decoration: none;">
+                    Facebook
+                    <img src="Styles/Images/icons/logo-facebook.svg" alt="facebook" class="logoo">
+                </a>
+            </div>
+        </nav>
+    </div>
+    <script src="Styles/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

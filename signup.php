@@ -20,19 +20,19 @@
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            echo "<script>alert('Username or Email already exists.')</script>";
+            $errorMsg = "Username or Email already exists.";
         } else {
             // Validate password
             if (empty($password)) {
-                echo "<script>alert('Password is required.')</script>";
+                $errorMsg = "Password is required.";
             } elseif (strlen($password) < 8) {
-                echo "<script>alert('Password must be at least 8 characters.')</script>";
+                $errorMsg = "Password must be at least 8 characters.";
             } elseif (!preg_match("/[a-z]/i", $password)) {
-                echo "<script>alert('Password must contain at least one letter.')</script>";
+                $errorMsg = "Password must contain at least one letter.";
             } elseif (!preg_match("/[0-9]/", $password)) {
-                echo "<script>alert('Password must contain at least one number.')</script>";
+                $errorMsg = "Password must contain at least one number.";
             } elseif ($password !== $rt_pass) {
-                echo "<script>alert('Passwords do not match.')</script>";
+                $errorMsg = "Passwords do not match.";
             } else {
                 // Create an encrypted password
                 $pass_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -47,7 +47,7 @@
                     echo "<script>alert('Sign-up Success!'); window.location.href = 'login.php';</script>";
 
                 } else {
-                    echo "<script>alert('Error occurred during sign-up.')</script>";
+                    $errorMsg = "Error occurred during sign-up.";
                 }
             }
         }

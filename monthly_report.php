@@ -87,12 +87,12 @@ $html = '
     </tr>
     </table>
     <hr width="100%">
-    <h1>Monthly Report for ' . date('F Y', mktime(0, 0, 0, $month, 10, $year)) . '</h1>
+    <h1>Monthly Report for ' . htmlspecialchars(date('F Y', mktime(0, 0, 0, $month, 10, $year))) . '</h1>
     <h2>Executive Summary</h2>
     <ul>
-    <li>Total Orders: ' . $order_data['total_orders'] . '</li>
-    <li>Total Quantity Sold: ' . $sales_data['total_quantity'] . ' kg</li>
-    <li>Total Sales: Rs. ' . number_format($sales_data['total_sales'], 2) . '</li>
+    <li>Total Orders: ' . htmlspecialchars($order_data['total_orders']) . '</li>
+    <li>Total Quantity Sold: ' . htmlspecialchars($sales_data['total_quantity']) . ' kg</li>
+    <li>Total Sales: Rs. ' . htmlspecialchars(number_format($sales_data['total_sales'], 2)) . '</li>
     </ul>
     <h2>Sales Performance</h2>
     <div style="border: 1px solid black; padding-left: 10px; padding-right: 10px; display: block;">
@@ -101,13 +101,13 @@ $html = '
     </div>
     <h2>Stock Inventory Update</h2>
     <ul>
-    <li>Available Stock: ' . $stock_data['available_stock'] . ' kg</li>
+    <li>Available Stock: ' . htmlspecialchars($stock_data['available_stock']) . ' kg</li>
     </ul>
     <h2>Financial Overview</h2>
     <ul>
-    <li>Total Sales: Rs. ' . number_format($sales_data['total_sales'], 2) . '</li>
-    <li>Total Cost: Rs. ' . number_format($sales_data['total_quantity'] * $cost_per_kg, 2) . '</li>
-    <li>Profit: Rs. ' . number_format($profit, 2) . '</li>
+    <li>Total Sales: Rs. ' . htmlspecialchars(number_format($sales_data['total_sales'], 2)) . '</li>
+    <li>Total Cost: Rs. ' . htmlspecialchars(number_format($sales_data['total_quantity'] * $cost_per_kg, 2)) . '</li>
+    <li>Profit: Rs. ' . htmlspecialchars(number_format($profit, 2)) . '</li>
     </ul>
 </body>
 </html>

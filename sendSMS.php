@@ -53,19 +53,19 @@ if (!isset($sms)) {
 // Messages that needed to be sent
 switch ($sms) {
     case "order_placed":
-        $numbers = [$adminNumber, $managerNumber];
+        $numbers = [$managerNumber];
         $messageText = 'A customer has placed an order.
         Customer Name: ' . $user_row['U_Name'] . '
         Customer ID: ' . $user_row['User_ID'] . '
         Date: ' . $currentDate;
         break;
     case "stock_limited":
-        $numbers = [$adminNumber, $managerNumber];
+        $numbers = [$managerNumber];
         $messageText = 'Current pepper stock is limited. Please refill.
         Current Stock: ' . $stock_data['available_stock'];
         break;
     case "out_of_stock":
-        $numbers = [$adminNumber, $managerNumber];
+        $numbers = [$managerNumber];
         $messageText = 'Sir, your stock is empty. Please refill.
         ' . $currentDate;
         break;
@@ -105,9 +105,7 @@ $request = new SmsAdvancedTextualRequest(messages: $messages);
 // Send SMS
 try {
     $response = $api->sendSmsMessage($request);
-    // Uncomment the line below to print the response for debugging purposes
-    echo "SMS sent successfully: " . json_encode($response);
 } catch (Exception $e) {
-    echo "Error sending SMS: " . $e->getMessage();
+    echo "<script>alert('Error sending SMS: " . $e->getMessage() . "')</script>";
 }
 ?>

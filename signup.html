@@ -4,22 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="Styles/Images/p3.jpg">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <link rel="stylesheet" href="Styles/theme.css">
+    <link rel="stylesheet" href="Styles/signup.css">
+    <link rel="stylesheet" href="Styles/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <title>Sign Up</title>
+    <style>
+        #msg {
+            animation: cssAnimation 0s ease-in 5s forwards;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes cssAnimation {
+            to {
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+            }
+        }
+
+        .mb-1{
+            width: 600px;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Sign Up</h1><br>
-    <form action="" method="post" novalidate>
-        <input type="email" name="email" placeholder="Email" required>
-        <br><input type="text" name="fname" placeholder="First Name">
-        <br><input type="text" name="lname" placeholder="Last Name">
-        <br><input type="text" name="uname" placeholder="User Name" required>
-        <br><input type="text" name="nic" placeholder="NIC" required>
-        <br><input type="text" name="telNo" placeholder="Telephone">
-        <br><input type="password" name="password" placeholder="Password" required>
-        <br><input type="password" name="rt_password" placeholder="Retype Password" required><br>
-        <input type="submit" name="submit" value="Sign Up">
-    </form>
-    <span>Already have an account? <a href="login.php">Login</a></span>
+    <script src="Styles/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <div class="background-image">
+        <div class="container-fluid">
+            <div class="row h-100">
+                <div class="col-md-6 d-none d-md-block"></div>
+                <div class="col-md-6 form-container">
+                    <div class="text-center">
+                        <img src="Styles/Images/p3.png" class="rounded" alt="Dilthira pepper logo">
+                    </div>
+                    <div class="text-center">
+                        <h2 id="headtxt">Sign-Up</h2>
+                    </div>
+                    <form action="" method="post" autocomplete="off">
+                        <div class="mb-1">
+                            <input type="text" class="form-control" id="formwid" name="fname" placeholder="First Name">
+                        </div>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" id="formwid" name="lname" placeholder="Last Name">
+                        </div>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" id="formwid" name="uname" placeholder="User Name" required>
+                        </div>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" id="formwid" name="nic" placeholder="NIC" required>
+                        </div>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" id="formwid" name="telNo" placeholder="Tel.Number">
+                        </div>
+                        <div class="mb-1">
+                            <input type="email" class="form-control" id="formwid" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="mb-1">
+                            <input type="password" class="form-control" id="formwid" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="mb-1">
+                            <input type="password" class="form-control" id="formwid" name="rt_password" placeholder="Retry Password" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" name="submit" value="Sign Up" class="btn btn-primary" id="submitButton">Sign-Up</button>
+                        </div>
+                    </form>
+                    <?php if (isset($errorMsgEmail)) : ?>
+                        <p id="msg" class="text-danger"><?php echo $errorMsg; ?></p>
+                    <?php endif; ?>
+                    <div class="text-center mt-3">
+                        Already have an account? <a href="login.php">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Styles/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
