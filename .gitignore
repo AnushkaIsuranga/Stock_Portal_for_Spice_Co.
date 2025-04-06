@@ -3,3 +3,4 @@ dompdf
 vendor
 node_modules
 uploads
+.vercel

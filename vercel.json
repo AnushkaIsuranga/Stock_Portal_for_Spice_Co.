@@ -1,0 +1,48 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "*.html",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "Styles/*",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "css/*",
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/",
+        "dest": "/index.html"
+      },
+      {
+        "src": "/login",
+        "dest": "/login.html"
+      },
+      {
+        "src": "/signup",
+        "dest": "/signup.html"
+      },
+      {
+        "src": "/admin",
+        "dest": "/admin.html"
+      },
+      {
+        "src": "/manager",
+        "dest": "/manager.html"
+      },
+      {
+        "src": "/place_order",
+        "dest": "/place_order.html"
+      },
+      {
+        "src": "/(.*)",
+        "status": 404,
+        "dest": "/404.html"
+      }
+    ]
+  }
