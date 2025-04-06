@@ -1,231 +1,582 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="Styles/Images/p3.jpg">
-        <link rel="stylesheet" href="Styles/theme.css">
-        <link rel="stylesheet" href="Styles/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-        <style>
-            body{
-                font-family: inder;
-            }
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dilthira Associates - Premium Pepper Powder</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Font imports */
+      @font-face {
+        font-family: "Inder";
+        src: url("Styles/fonts/Inder-Regular.ttf");
+        font-display: swap;
+      }
 
-            @font-face {
-                font-family: inder;
-                src: url('./Styles/fonts/Inder-Regular.ttf');
-            }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-VariableFont_slnt\,wght.ttf");
+        font-display: swap;
+      }
 
-            .scrollable-table {
-                max-height: 400px; /* Adjust as needed */
-                overflow-y: auto;
-                display: block;
-            }
+      @font-face {
+        font-family: "Inlander-Smooth";
+        src: url("fonts/INLANDER SMOOTH.TTF");
+        font-display: swap;
+      }
 
-            #footer {
-                background-image: url(/Styles/Images/perahara.png);
-                height: 200px;
-                margin-top: auto;
-                text-align: right;
-                padding-right: 30px;
-                margin-right: 0;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                flex-shrink: 0;
-                margin-top: 200px;
-            }
+      /* Global styles */
+      body {
+        font-family: "Inder", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        overflow-x: hidden;
+      }
 
-            #logo{
-                height: 100px;
-            }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+      }
 
-            #submitButton{
-                height: 50px;
-                font-size: 20px;
-            }
+      section {
+        padding: 80px 0;
+      }
 
+      .section-title {
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 30px;
+        position: relative;
+        font-size: 2.5rem;
+        color: #454836;
+      }
 
-            @media(max-width: 700px){
-                #footer{
-                    margin-top: 30px;
-                }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60px;
+        height: 3px;
+        background-color: #6b291c;
+      }
 
-                #logo{
-                    height: 100px;
-                }
+      .text-center .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-                #submitButton{
-                    height: 30px;
-                    font-size: 10px;
-                }
-            }
-        </style>
-        <title>Order History</title>
-    </head>
-    <body>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                //Gathering elements into variables
-                const yearSelect = document.getElementById('year');
-                const monthSelect = document.getElementById('month');
-                const dateSelect = document.getElementById('date');
+      /* Header / Navigation */
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        padding: 15px 0;
+        transition: all 0.3s ease;
+      }
 
-                // Initialize year dropdown menu
-                yearSelect.innerHTML = '<option value="0">All Years</option>';
-                for (let year = 2023; year <= 4000; year++) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.text = year;
-                    yearSelect.appendChild(option);
-                }
+      .navbar-brand img {
+        height: 80px;
+        transition: all 0.3s ease;
+      }
 
-                // Initialize month dropdown menu
-                monthSelect.innerHTML = '<option value="0">All Months</option>';
-                for (let month = 1; month <= 12; month++) {
-                    const option = document.createElement('option');
-                    option.value = month;
-                    option.text = month;
-                    monthSelect.appendChild(option);
-                }
+      .navbar-nav .nav-link {
+        color: #333;
+        font-size: 1.1rem;
+        margin: 0 15px;
+        transition: color 0.3s ease;
+      }
 
-                // Initialize date dropdown menu
-                dateSelect.innerHTML = '<option value="0">All Dates</option>';
-                for (let date = 1; date <= 31; date++) {
-                    const option = document.createElement('option');
-                    option.value = date;
-                    option.text = date;
-                    dateSelect.appendChild(option);
-                }
+      .navbar-nav .nav-link:hover {
+        color: #6b291c;
+      }
 
-                // Function to filter data based on selections
-                function filterData() {
-                    const selectedYear = yearSelect.value;
-                    const selectedMonth = monthSelect.value;
-                    const selectedDate = dateSelect.value;
+      .login-btn {
+        background-color: #6b291c;
+        color: white;
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-weight: 500;
+        border: none;
+        transition: all 0.3s ease;
+      }
 
-                    // Create an XMLHttpRequest object to automatically refresh the table with selected values
-                    const xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState === 4 && this.status === 200) {
-                            const filteredData = JSON.parse(this.responseText);
-                            updateTable(filteredData);
-                        }
-                    };
-                    xhttp.open("POST", "filter_data.php", true);
-                    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhttp.send("year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
-                }
+      .login-btn:hover {
+        background-color: #562318;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(107, 41, 28, 0.2);
+      }
 
-                // Function to update the table with filtered data
-                function updateTable(data) {
-                    const tableBody = document.getElementById("tableBody");
-                    tableBody.innerHTML = "";
+      /* Hero Section */
+      .hero {
+        position: relative;
+        padding: 0;
+        overflow: hidden;
+      }
 
-                    if (data.length === 0) {
-                        tableBody.innerHTML = "<tr><td colspan='4'>No records found based on your filter selection.</td></tr>";
-                    } else {
-                        for (const row of data) {
-                            const tableRow = document.createElement("tr");
-                            tableRow.innerHTML = `
-                                <td>${row["Order_ID"]}</td>
-                                <td>${row["Date"]}</td>
-                                <td>${row["Quantity"]}</td>
-                                <td>${row["Price_Rs"]}</td>
-                            `;
-                            tableBody.appendChild(tableRow);
-                        }
-                    }
-                }
+      .hero-img {
+        width: 100%;
+        height: auto;
+      }
 
-                // Call filterData on combobox selection change
-                yearSelect.addEventListener('change', filterData);
-                monthSelect.addEventListener('change', filterData);
-                dateSelect.addEventListener('change', filterData);
+      .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+      }
 
-                // Initial load of all data
-                filterData();
-            });
-        </script>
+      .hero-heading {
+        font-size: 3rem;
+        line-height: 1.2;
+        color: #454836;
+        margin-bottom: 10px;
+      }
 
-        <div class="row-fluid">
-            <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-                <div class="container-fluid d-flex justify-content-between align-items-center">
-                    <div class="col-4">
-                        <a href="main.html"><img src="Styles/Images/p3.png" id="logo" class="rounded navbar-logo" alt="Dilthira pepper logo"></a>
-                    </div>
-                    <div class="col-4" style="text-align: center; font-size: 4vw;">
-                        <h4 style="color: white; font-size: 4vw;">Welcome, <?php echo $_SESSION['user_name']; ?></h4>
-                    </div>
-                    <div class="col-4" style="text-align: right; margin-right: -30px;">
-                        <a href="logout.php">
-                            <button type="button" class="btn btn-primary" id="submitButton" style="border-radius: 20px;">Log-Out</button>
-                        </a>
-                    </div>
-                </div>
-            </nav>
+      .hero-subheading {
+        font-size: 1.8rem;
+        color: #6b291c;
+        margin-bottom: 20px;
+      }
+
+      .hero-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #555;
+      }
+
+      /* About Section */
+      .about-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Product Section */
+      .product-section {
+        position: relative;
+        padding: 100px 0;
+      }
+
+      .product-img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .product-content {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: -80px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Services Section */
+      .services-section {
+        position: relative;
+        padding: 100px 0;
+        background-color: #f9f9f9;
+      }
+
+      .services-img {
+        width: 100%;
+        height: auto;
+      }
+
+      .services-content {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: -80px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Footer */
+      footer {
+        background-image: url(css/Images/perahara.png);
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 60px 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      }
+
+      .footer-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background-color: #6b291c;
+        transform: translateY(-3px);
+      }
+
+      .social-links img {
+        height: 20px;
+        width: auto;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 992px) {
+        .navbar-brand img {
+          height: 60px;
+        }
+
+        .hero-content {
+          left: 5%;
+          max-width: 90%;
+          padding: 30px;
+        }
+
+        .hero-heading {
+          font-size: 2.5rem;
+        }
+
+        .hero-subheading {
+          font-size: 1.5rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 60px 0;
+        }
+
+        .navbar-brand img {
+          height: 50px;
+        }
+
+        .hero-content {
+          position: relative;
+          top: auto;
+          left: auto;
+          transform: none;
+          margin: -60px 15px 0;
+        }
+
+        .hero-heading {
+          font-size: 2rem;
+        }
+
+        .hero-subheading {
+          font-size: 1.3rem;
+        }
+
+        .product-content,
+        .services-content {
+          margin-top: 0;
+        }
+
+        .about-img {
+          margin-top: 30px;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand img {
+          height: 40px;
+        }
+
+        .hero-content {
+          padding: 20px;
+        }
+
+        .hero-heading {
+          font-size: 1.8rem;
+        }
+
+        .hero-subheading {
+          font-size: 1.2rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="css/Images/p3.png" alt="Dilthira Associates Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#product">Our Product</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Our Service</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact Us</a>
+            </li>
+          </ul>
+          <a href="login.php" class="ms-3">
+            <button class="login-btn">Login</button>
+          </a>
         </div>
+      </div>
+    </nav>
 
-        <div class="row-fluid">
-            <div class="container-fluid" style="margin: auto; margin-top: 150px;">
-                <div class="row-fluid" style="justify-content: center; text-align: center;">
-                    <div class="row" style="justify-content: center;">
-                        <div class="col">
-                            <select id="year" class="form-control"></select>
-                        </div>
-                        <div class="col">
-                            <select id="month" class="form-control"></select>
-                        </div>
-                        <div class="col">
-                            <select id="date" class="form-control"></select>
-                        </div><br><br>
-                        <div class="col-md">
-                            <form action="place_order.php" method="post">
-                                <button type="submit" class="form-control" style="background-color: black; color: white;">Place Order</button>
-                            </form>
-                        </div>
-                    </div>
-            
-                    <div class="scrollable-table">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Order ID</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <!-- Table content will be dynamically populated here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero">
+      <img
+        src="css/Images/p4.png"
+        alt="Dilthira Pepper Powder"
+        class="hero-img"
+      />
+      <div class="hero-content">
+        <h1 class="hero-heading">Welcome To,</h1>
+        <h2 class="hero-subheading">Dilthira Associates</h2>
+        <p class="hero-text">
+          Enhance the zest and piquancy of your culinary creations using
+          top-quality pepper powder.
+        </p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2 class="section-title">About Us</h2>
+            <p class="mb-4">
+              At Dilthira Associates, we pride ourselves on our significant role
+              in the Sri Lankan spice trading landscape, with a specialization
+              in premium black pepper. Our journey began in 2010 as a pepper
+              powder stock trading company, driven by our vision to provide
+              top-quality products at affordable prices.
+            </p>
+            <p>
+              Over the years, we have evolved into a renowned name in the
+              industry, particularly catering to the needs of top-tier hotels
+              and restaurants in Kandy. Our commitment to delivering
+              high-quality pepper powder products at accessible prices has
+              garnered widespread recognition among our valued customers and
+              fellow businesses. We are honored by the trust and confidence
+              placed in us by the market, and we remain dedicated to upholding
+              our standards of excellence in quality affordability.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <img
+              src="css/Images/p2-removebg-preview.png"
+              alt="About Dilthira"
+              class="about-img"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="product" class="product-section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <img
+            src="css/Images/karabijer-tane-421.png"
+            alt="Pepper Berries"
+            class="product-img"
+          />
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="product-content text-center">
+              <h2 class="section-title text-center">Our Product</h2>
+              <p class="mb-4">
+                Experience the exquisite flavor and unmatched quality of our
+                premium pepper powder. Crafted from the finest pepper berries,
+                our product ensures culinary perfection in every dish. We uphold
+                stringent production standards to guarantee the safety and
+                quality of our pepper powder, adhering to strict hygiene
+                protocols throughout the manufacturing process.
+              </p>
+              <p>
+                Our packaging and delivery services are tailored to meet the
+                needs of our esteemed clients. We ensure that your orders are
+                carefully packed and promptly delivered on time, maintaining the
+                freshness and integrity of our products from our facility to
+                your doorstep. With Dilthira Associates, you can trust in both
+                the quality of our products and the reliability of our packaging
+                and delivery services.
+              </p>
             </div>
+          </div>
         </div>
-        
-        <div class="row-fluid">
-            <nav class="navbar navbar-expand-lg navbar-custom" id="footer">
-            <div class="container-fluid d-flex justify-content-between align-items-center" style="text-align: right; padding-right: 30px;">
-                <div class="col" style="font-size: 25px; font-weight: bolder; color: white;">Contact Us<br>
-                    <a href="mailto:your-email@example.com" style="color: white; font-size: 15px; text-decoration: none;">
-                        dilthira@gmail.com
-                        <img src="Styles/Images/icons/mail-outline.svg" alt="email" class="logoo">
-                    </a>
-                    <br>
-                    <a href="tel:+9434567890" style="color: white; font-size: 15px; text-decoration: none;">
-                        +94 345 67890
-                        <img src="Styles/Images/icons/call-outline.svg" alt="call" class="logoo">
-                    </a>
-                    <br>
-                    <a href="https://www.facebook.com/yourprofile" target="_blank" style="color: white; font-size: 15px; text-decoration: none;">
-                        Facebook
-                        <img src="Styles/Images/icons/logo-facebook.svg" alt="facebook" class="logoo">
-                    </a>
-                </div>
-            </nav>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <img
+            src="css/Images/pepper.png"
+            alt="Pepper Services"
+            class="services-img"
+          />
         </div>
-        <script src="Styles/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="services-content text-center">
+              <h2 class="section-title text-center">Our Services</h2>
+              <p>
+                Our packaging and delivery services are tailored to meet the
+                needs of our esteemed clients. We ensure that your orders are
+                carefully packed and promptly delivered on time, maintaining the
+                freshness and integrity of our products from our facility to
+                your doorstep. With Dilthira Associates, you can trust in both
+                the quality of our products and the reliability of our packaging
+                and delivery services.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="container footer-content">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h3 class="mb-4">Connect With Us</h3>
+            <div class="social-links">
+              <a href="linkedin" target="_blank">
+                <img src="css/Images/linkedin.png" alt="LinkedIn" />
+              </a>
+              <a href="fb" target="_blank">
+                <img src="css/Images/fb.png" alt="Facebook" />
+              </a>
+              <a href="insta" target="_blank">
+                <img src="css/Images/insta.png" alt="Instagram" />
+              </a>
+            </div>
+            <div class="mt-4">
+              <p>© 2025 Dilthira Associates. All Rights Reserved.</p>
+              <p>Email: contact@dilthira.com | Phone: +94 345 67890</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+      // Add scroll behavior for navbar
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.style.padding = "10px 0";
+        } else {
+          navbar.style.padding = "15px 0";
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const target = document.querySelector(targetId);
+          if (target) {
+            const navbarHeight = document.querySelector(".navbar").offsetHeight;
+            const targetPosition =
+              target.getBoundingClientRect().top +
+              window.pageYOffset -
+              navbarHeight;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

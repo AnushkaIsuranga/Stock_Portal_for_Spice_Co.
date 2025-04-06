@@ -1,124 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="Styles/Images/p3.jpg">
-    <link rel="stylesheet" href="Styles/theme.css">
-    <link rel="stylesheet" href="Styles/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <title>Administrator</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="Styles/Images/p3.jpg" />
+    <title>Administrator - Dilthira Associates</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Font imports */
+      @font-face {
+        font-family: "Inder";
+        src: url("Styles/fonts/Inder-Regular.ttf");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-VariableFont_slnt\,wght.ttf");
+        font-display: swap;
+      }
+
+      body {
+        font-family: "Inder", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #f9f9f9;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+      }
+
+      .navbar-custom {
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        padding: 15px 0;
+      }
+
+      .navbar-logo {
+        height: 80px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: #6b291c;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #562318;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(107, 41, 28, 0.2);
+      }
+
+      .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-danger:hover {
+        background-color: #bb2d3b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+      }
+
+      .section-title {
+        color: #454836;
+        position: relative;
+        margin-bottom: 30px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60px;
+        height: 3px;
+        background-color: #6b291c;
+      }
+
+      .form-control {
+        border-radius: 0;
+        border: 1px solid #ddd;
+      }
+
+      .form-control:focus {
+        border-color: #6b291c;
+        box-shadow: 0 0 0 0.25rem rgba(107, 41, 28, 0.25);
+      }
+
+      .scrollable-table {
+        max-height: 400px;
+        overflow-y: auto;
+        display: block;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      table {
+        background-color: white;
+      }
+
+      thead {
+        background-color: #454836;
+        color: white;
+        position: sticky;
+        top: 0;
+      }
+
+      #footer {
+        background-image: url("Styles/Images/perahara.png");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 60px 0;
+        position: relative;
+        margin-top: 50px;
+      }
+
+      #footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      }
+
+      .footer-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .footer-link {
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-link:hover {
+        color: #d1d1d1;
+        text-decoration: underline;
+      }
+
+      .logoo {
+        height: 20px;
+        margin-left: 5px;
+        filter: brightness(0) invert(1);
+      }
+
+      #msg {
+        animation: cssAnimation 0s ease-in 5s forwards;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes cssAnimation {
+        to {
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          visibility: hidden;
+        }
+      }
+
+      .admin-panel {
+        background-color: white;
+        border-radius: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 992px) {
+        .navbar-logo {
+          height: 60px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar-logo {
+          height: 50px;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-logo {
+          height: 40px;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="main.html">
+          <img
+            src="Styles/Images/p3.png"
+            alt="Dilthira Associates Logo"
+            class="navbar-logo"
+          />
+        </a>
+        <h4 class="text-center my-auto" style="color: #454836">
+          Welcome, Administrator
+        </h4>
+        <a href="logout.php">
+          <button type="button" class="btn btn-primary">Log Out</button>
+        </a>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 120px">
+      <!-- Display success or error messages -->
+      <?php if (isset($successMsg)) : ?>
+      <div class="alert alert-success" id="msg"><?php echo $successMsg; ?></div>
+      <?php endif; ?>
+
+      <?php if (isset($errorMsg)) : ?>
+      <div class="alert alert-danger" id="msg"><?php echo $errorMsg; ?></div>
+      <?php endif; ?>
+
+      <div class="row">
+        <!-- Order Management Panel -->
+        <div class="col-lg-6">
+          <div class="admin-panel">
+            <h3 class="section-title">Order Management</h3>
+
+            <div class="mb-4">
+              <label for="txtUserID_SearchOrder" class="form-label"
+                >Search by User ID:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="userIdSearchOrder"
+                id="txtUserID_SearchOrder"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="txtOrderID_SearchOrder" class="form-label"
+                >Search by Order ID:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="orderIdSearchOrder"
+                id="txtOrderID_SearchOrder"
+              />
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-4">
+                <label for="yearOrder" class="form-label">Year:</label>
+                <select class="form-select" id="yearOrder"></select>
+              </div>
+              <div class="col-md-4">
+                <label for="monthOrder" class="form-label">Month:</label>
+                <select class="form-select" id="monthOrder"></select>
+              </div>
+              <div class="col-md-4">
+                <label for="dateOrder" class="form-label">Date:</label>
+                <select class="form-select" id="dateOrder"></select>
+              </div>
+            </div>
+
+            <button class="btn btn-danger w-100" id="deleteButtonOrder">
+              Delete Filtered Orders
+            </button>
+          </div>
+
+          <!-- Order Table -->
+          <div class="scrollable-table">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>User ID</th>
+                  <th>Date</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Address Line 1</th>
+                  <th>Address Line 2</th>
+                  <th>Verification</th>
+                </tr>
+              </thead>
+              <tbody id="tableBodyOrder">
+                <!-- Table content will be dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Column Panels -->
+        <div class="col-lg-6">
+          <!-- Invoice Request Panel -->
+          <div class="admin-panel">
+            <h3 class="section-title">Invoice Request</h3>
+            <form action="invoice.php" method="post">
+              <div class="row">
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="orderID"
+                    id="orderID"
+                    placeholder="Enter order ID"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <button type="submit" class="btn btn-primary w-100">
+                    Get Invoice
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Stock Management Panel -->
+          <div class="admin-panel">
+            <h3 class="section-title">Stock Management</h3>
+            <form action="admin.php" method="post">
+              <div class="mb-3">
+                <label for="current_stock" class="form-label"
+                  >Current Stock:</label
+                >
+                <h4 class="text-primary">
+                  <?php echo $stock_data['available_stock']; ?>
+                  kg
+                </h4>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="new_stock"
+                    name="new_stock"
+                    min="0"
+                    placeholder="New Stock (in kg)"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                    name="update_stock"
+                  >
+                    Update Stock
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- User Management Panel -->
+          <div class="admin-panel">
+            <h3 class="section-title">User Management</h3>
+            <div class="mb-4">
+              <label for="txtUserID_SearchUser" class="form-label"
+                >Search by User ID:</label
+              >
+              <div class="row">
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="userIdSearchUser"
+                    id="txtUserID_SearchUser"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <button class="btn btn-danger w-100" id="deleteButtonUser">
+                    Delete User
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Table -->
+          <div class="scrollable-table">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Email</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                  <th>NIC</th>
+                  <th>Telephone</th>
+                </tr>
+              </thead>
+              <tbody id="tableBodyUser">
+                <!-- Table content will be dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <div class="container footer-content">
+        <div class="row">
+          <div class="col-12 text-end">
+            <h3 class="mb-4">Contact Us</h3>
+            <p>
+              <a href="mailto:dilthira@gmail.com" class="footer-link">
+                dilthira@gmail.com
+                <img
+                  src="Styles/Images/icons/mail-outline.svg"
+                  alt="email"
+                  class="logoo"
+                />
+              </a>
+            </p>
+            <p>
+              <a href="tel:+9434567890" class="footer-link">
+                +94 345 67890
+                <img
+                  src="Styles/Images/icons/call-outline.svg"
+                  alt="call"
+                  class="logoo"
+                />
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://www.facebook.com/yourprofile"
+                target="_blank"
+                class="footer-link"
+              >
+                Facebook
+                <img
+                  src="Styles/Images/icons/logo-facebook.svg"
+                  alt="facebook"
+                  class="logoo"
+                />
+              </a>
+            </p>
+            <p class="mt-4">© 2025 Dilthira Associates. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Setting elements to variables
-            const searchUserIDOrder = document.getElementById('txtUserID_SearchOrder');
-            const searchOrderIDOrder = document.getElementById('txtOrderID_SearchOrder');
-            const yearSelectOrder = document.getElementById('yearOrder');
-            const monthSelectOrder = document.getElementById('monthOrder');
-            const dateSelectOrder = document.getElementById('dateOrder');
-            const deleteButtonOrder = document.getElementById('deleteButtonOrder');
-            const deleteButtonUser = document.getElementById('deleteButtonUser');
+      document.addEventListener("DOMContentLoaded", function () {
+        // Setting elements to variables
+        const searchUserIDOrder = document.getElementById(
+          "txtUserID_SearchOrder"
+        );
+        const searchOrderIDOrder = document.getElementById(
+          "txtOrderID_SearchOrder"
+        );
+        const yearSelectOrder = document.getElementById("yearOrder");
+        const monthSelectOrder = document.getElementById("monthOrder");
+        const dateSelectOrder = document.getElementById("dateOrder");
+        const deleteButtonOrder = document.getElementById("deleteButtonOrder");
+        const deleteButtonUser = document.getElementById("deleteButtonUser");
+        const searchUserIDUser = document.getElementById(
+          "txtUserID_SearchUser"
+        );
 
-            const searchUserIDUser = document.getElementById('txtUserID_SearchUser');
+        // Initialize year, month, and date selects for order filtering
+        yearSelectOrder.innerHTML = '<option value="0">All Years</option>';
+        for (let year = 2023; year <= new Date().getFullYear() + 1; year++) {
+          const option = document.createElement("option");
+          option.value = year;
+          option.text = year;
+          yearSelectOrder.appendChild(option);
+        }
 
-            // Initialize year, month, and date selects for order filtering
-            yearSelectOrder.innerHTML = '<option value="0">All Years</option>';
-            for (let year = 2023; year <= 4000; year++) {
-                const option = document.createElement('option');
-                option.value = year;
-                option.text = year;
-                yearSelectOrder.appendChild(option);
+        monthSelectOrder.innerHTML = '<option value="0">All Months</option>';
+        for (let month = 1; month <= 12; month++) {
+          const option = document.createElement("option");
+          option.value = month;
+          option.text = new Date(2000, month - 1, 1).toLocaleString("default", {
+            month: "long",
+          });
+          monthSelectOrder.appendChild(option);
+        }
+
+        dateSelectOrder.innerHTML = '<option value="0">All Dates</option>';
+        for (let date = 1; date <= 31; date++) {
+          const option = document.createElement("option");
+          option.value = date;
+          option.text = date;
+          dateSelectOrder.appendChild(option);
+        }
+
+        // Filtering order table records
+        function filterDataOrder() {
+          const userID = searchUserIDOrder.value;
+          const orderID = searchOrderIDOrder.value;
+          const selectedYear = yearSelectOrder.value;
+          const selectedMonth = monthSelectOrder.value;
+          const selectedDate = dateSelectOrder.value;
+
+          const xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+              const filteredData = JSON.parse(this.responseText);
+              updateTableOrder(filteredData);
             }
+          };
+          xhttp.open("POST", "filter_data_admin_order.php", true);
+          xhttp.setRequestHeader(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          );
+          xhttp.send(
+            "userId=" +
+              userID +
+              "&orderId=" +
+              orderID +
+              "&year=" +
+              selectedYear +
+              "&month=" +
+              selectedMonth +
+              "&date=" +
+              selectedDate
+          );
+        }
 
-            monthSelectOrder.innerHTML = '<option value="0">All Months</option>';
-            for (let month = 1; month <= 12; month++) {
-                const option = document.createElement('option');
-                option.value = month;
-                option.text = month;
-                monthSelectOrder.appendChild(option);
-            }
+        // Updating order table
+        function updateTableOrder(data) {
+          const tableBody = document.getElementById("tableBodyOrder");
+          tableBody.innerHTML = "";
 
-            dateSelectOrder.innerHTML = '<option value="0">All Dates</option>';
-            for (let date = 1; date <= 31; date++) {
-                const option = document.createElement('option');
-                option.value = date;
-                option.text = date;
-                dateSelectOrder.appendChild(option);
-            }
-
-            // Filtering order table records
-            function filterDataOrder() {
-                const userID = searchUserIDOrder.value;
-                const orderID = searchOrderIDOrder.value;
-                const selectedYear = yearSelectOrder.value;
-                const selectedMonth = monthSelectOrder.value;
-                const selectedDate = dateSelectOrder.value;
-
-                const xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                        console.log(this.responseText); // Debugging line
-                        const filteredData = JSON.parse(this.responseText);
-                        updateTableOrder(filteredData);
-                    }
-                };
-                xhttp.open("POST", "filter_data_admin_order.php", true);
-                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.send("userId=" + userID + "&orderId=" + orderID + "&year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
-            }
-
-            // Updating order table
-            function updateTableOrder(data) {
-                const tableBody = document.getElementById("tableBodyOrder");
-                tableBody.innerHTML = "";
-
-                if (data.length === 0) {
-                    tableBody.innerHTML = "<tr><td colspan='8'>No records found based on your filter selection.</td></tr>";
-                } else {
-                    data.forEach(row => {
-                        const tableRow = document.createElement("tr");
-                        tableRow.innerHTML = `
+          if (data.length === 0) {
+            tableBody.innerHTML =
+              "<tr><td colspan='8' class='text-center py-4'>No records found based on your filter selection.</td></tr>";
+          } else {
+            data.forEach((row) => {
+              const tableRow = document.createElement("tr");
+              tableRow.innerHTML = `
                             <td>${row["Order_ID"]}</td>
                             <td>${row["User_ID"]}</td>
                             <td>${row["Date"]}</td>
                             <td>${row["Quantity"]}</td>
-                            <td>${row["Price_Rs"]}</td>
+                            <td>Rs. ${row["Price_Rs"]}</td>
                             <td>${row["Add_Line1"]}</td>
                             <td>${row["Add_Line2"]}</td>
                             <td>${row["needs_verification"]}</td>
                         `;
-                        tableBody.appendChild(tableRow);
-                    });
-                }
+              tableBody.appendChild(tableRow);
+            });
+          }
+        }
+
+        // Filtering user table records
+        function filterDataUser() {
+          const userID = searchUserIDUser.value;
+
+          const xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+              const filteredData = JSON.parse(this.responseText);
+              updateTableUser(filteredData);
             }
+          };
+          xhttp.open("POST", "filter_data_admin_user.php", true);
+          xhttp.setRequestHeader(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          );
+          xhttp.send("userId=" + userID);
+        }
 
-            // Filtering user table records
-            function filterDataUser() {
-                const userID = searchUserIDUser.value;
+        // Updating user table
+        function updateTableUser(data) {
+          const tableBody = document.getElementById("tableBodyUser");
+          tableBody.innerHTML = "";
 
-                const xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                        console.log(this.responseText); // Debugging line
-                        const filteredData = JSON.parse(this.responseText);
-                        updateTableUser(filteredData);
-                    }
-                };
-                xhttp.open("POST", "filter_data_admin_user.php", true);
-                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.send("userId=" + userID);
-            }
-
-            // Updating user table
-            function updateTableUser(data) {
-                const tableBody = document.getElementById("tableBodyUser");
-                tableBody.innerHTML = "";
-
-                if (data.length === 0) {
-                    tableBody.innerHTML = "<tr><td colspan='8'>No records found based on your filter selection.</td></tr>";
-                } else {
-                    data.forEach(row => {
-                        const tableRow = document.createElement("tr");
-                        tableRow.innerHTML = `
+          if (data.length === 0) {
+            tableBody.innerHTML =
+              "<tr><td colspan='7' class='text-center py-4'>No records found based on your filter selection.</td></tr>";
+          } else {
+            data.forEach((row) => {
+              const tableRow = document.createElement("tr");
+              tableRow.innerHTML = `
                             <td>${row["User_ID"]}</td>
                             <td>${row["Email"]}</td>
                             <td>${row["F_Name"]}</td>
@@ -127,319 +627,114 @@
                             <td>${row["NIC"]}</td>
                             <td>${row["Tel_No"]}</td>
                         `;
-                        tableBody.appendChild(tableRow);
-                    });
+              tableBody.appendChild(tableRow);
+            });
+          }
+        }
+
+        // Deleting order table records
+        function deleteFilteredDataOrder() {
+          const userId = searchUserIDOrder.value;
+          const orderId = searchOrderIDOrder.value;
+          const selectedYear = yearSelectOrder.value;
+          const selectedMonth = monthSelectOrder.value;
+          const selectedDate = dateSelectOrder.value;
+
+          if (
+            !userId &&
+            !orderId &&
+            selectedYear == 0 &&
+            selectedMonth == 0 &&
+            selectedDate == 0
+          ) {
+            alert("Please enter filter criteria to proceed!");
+          } else {
+            if (
+              confirm(
+                "Are you sure you want to delete the filtered records? This action cannot be undone."
+              )
+            ) {
+              const xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                  const response = JSON.parse(this.responseText);
+                  if (response.success) {
+                    alert("Records deleted successfully");
+                    filterDataOrder(); // Refresh the table data
+                  } else {
+                    alert("Failed to delete records: " + response.message);
+                  }
                 }
+              };
+              xhttp.open("POST", "delete_records_order.php", true);
+              xhttp.setRequestHeader(
+                "Content-Type",
+                "application/x-www-form-urlencoded"
+              );
+              xhttp.send(
+                "userId=" +
+                  userId +
+                  "&orderId=" +
+                  orderId +
+                  "&year=" +
+                  selectedYear +
+                  "&month=" +
+                  selectedMonth +
+                  "&date=" +
+                  selectedDate
+              );
             }
+          }
+        }
 
-            // Deleting order table records
-            function deleteFilteredDataOrder() {
-                const userId = searchUserIDOrder.value;
-                const orderId = searchOrderIDOrder.value;
-                const selectedYear = yearSelectOrder.value;
-                const selectedMonth = monthSelectOrder.value;
-                const selectedDate = dateSelectOrder.value;
+        // Deleting user table records
+        function deleteFilteredDataUser() {
+          const userId = searchUserIDUser.value;
 
-                if(!userId && !orderId && !selectedYear && !selectedMonth && !selectedDate){
-                    alert('Please enter value to proceed!');
-                }else{
-                    if (confirm('Are you sure you want to delete the filtered records?')) {
-                        const xhttp = new XMLHttpRequest();
-                        xhttp.onreadystatechange = function() {
-                            if (this.readyState === 4 && this.status === 200) {
-                                console.log(this.responseText); // Debugging line
-                                const response = JSON.parse(this.responseText);
-                                if (response.success) {
-                                    alert('Records deleted successfully');
-                                    filterDataOrder(); // Refresh the table data
-                                } else {
-                                    alert('Failed to delete records: ' + response.message);
-                                }
-                            }
-                        };
-                        xhttp.open("POST", "delete_records_order.php", true);
-                        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhttp.send("userId=" + userId + "&orderId=" + orderId + "&year=" + selectedYear + "&month=" + selectedMonth + "&date=" + selectedDate);
-                    }
+          if (!userId) {
+            alert("Please enter a User ID to proceed!");
+          } else {
+            if (
+              confirm(
+                "Are you sure you want to delete this user? This action cannot be undone."
+              )
+            ) {
+              const xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                  const response = JSON.parse(this.responseText);
+                  if (response.success) {
+                    alert("User deleted successfully");
+                    filterDataUser(); // Refresh the table data
+                  } else {
+                    alert("Failed to delete user: " + response.message);
+                  }
                 }
+              };
+              xhttp.open("POST", "delete_records_user.php", true);
+              xhttp.setRequestHeader(
+                "Content-Type",
+                "application/x-www-form-urlencoded"
+              );
+              xhttp.send("userId=" + userId);
             }
+          }
+        }
 
-            // Deleting user table records
-            function deleteFilteredDataUser() {
-                const userId = searchUserIDUser.value;
+        // Event listeners
+        searchUserIDOrder.addEventListener("change", filterDataOrder);
+        searchOrderIDOrder.addEventListener("change", filterDataOrder);
+        yearSelectOrder.addEventListener("change", filterDataOrder);
+        monthSelectOrder.addEventListener("change", filterDataOrder);
+        dateSelectOrder.addEventListener("change", filterDataOrder);
+        deleteButtonOrder.addEventListener("click", deleteFilteredDataOrder);
+        deleteButtonUser.addEventListener("click", deleteFilteredDataUser);
+        searchUserIDUser.addEventListener("change", filterDataUser);
 
-                if(!userId){
-                    alert('Please enter value to proceed!');
-                }else{
-                    if (confirm('Are you sure you want to delete the filtered records?')) {
-                        const xhttp = new XMLHttpRequest();
-                        xhttp.onreadystatechange = function() {
-                            if (this.readyState === 4 && this.status === 200) {
-                                console.log(this.responseText); // Debugging line
-                                const response = JSON.parse(this.responseText);
-                                if (response.success) {
-                                    alert('Records deleted successfully');
-                                    filterDataOrder(); // Refresh the table data
-                                } else {
-                                    alert('Failed to delete records: ' + response.message);
-                                }
-                            }
-                        };
-                        xhttp.open("POST", "delete_records_user.php", true);
-                        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhttp.send("userId=" + userId);
-                    }
-                }
-            }
-
-            // Setting to run filterData & deleteFilteredData functions when given elements change
-            searchUserIDOrder.addEventListener('change', filterDataOrder);
-            searchOrderIDOrder.addEventListener('change', filterDataOrder);
-            yearSelectOrder.addEventListener('change', filterDataOrder);
-            monthSelectOrder.addEventListener('change', filterDataOrder);
-            dateSelectOrder.addEventListener('change', filterDataOrder);
-            deleteButtonOrder.addEventListener('click', deleteFilteredDataOrder);
-            deleteButtonUser.addEventListener('click', deleteFilteredDataUser);
-
-            searchUserIDUser.addEventListener('change', filterDataUser);
-
-            filterDataOrder();
-            filterDataUser();
-        });
+        // Initial data load
+        filterDataOrder();
+        filterDataUser();
+      });
     </script>
-    <style>
-        #msg{
-            animation: cssAnimation 0s ease-in 5s forwards;
-            animation-fill-mode: forwards;
-        }
-
-        @keyframes cssAnimation {
-            to {
-                width: 0;
-                height: 0;
-                overflow: hidden;
-                visibility: hidden;
-            }
-        }
-
-        @font-face {
-                font-family: inder;
-                src: url('./Styles/fonts/Inder-Regular.ttf');
-            }
-
-            .scrollable-table {
-                max-height: 400px; /* Adjust as needed */
-                overflow-y: auto;
-                display: block;
-            }
-
-            #footer {
-                background-image: url(/Styles/Images/perahara.png);
-                height: 200px;
-                margin-top: auto;
-                text-align: right;
-                padding-right: 30px;
-                margin-right: 0;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                flex-shrink: 0;
-            }
-
-            #logo{
-                height: 150px;
-            }
-
-            #submitButton{
-                height: 50px;
-                font-size: 20px;
-            }
-
-            @media(max-width: 700px){
-
-                #logo{
-                    height: 100px;
-                }
-
-                #submitButton{
-                    height: 30px;
-                    font-size: 10px;
-                }
-            }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="row-fluid">
-            <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-                <div class="container-fluid d-flex justify-content-between align-items-center">
-                    <div class="col-4">
-                        <a href="main.html"><img src="Styles/Images/p3.png" id="logo" class="rounded navbar-logo" alt="Dilthira pepper logo"></a>
-                    </div>
-                    <div class="col-4" style="text-align: center; justify-content: center; align-items: center;">
-                        <h4 style="color: white; font-size: 4vw;">Welcome, Administrator</h4>
-                    </div>
-                    <div class="col-4" style="text-align: right; margin-right: -30px;">
-                        <a href="logout.php">
-                            <button type="button" class="btn btn-primary" id="submitButton" style="border-radius: 20px;">Log-Out</button>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div class="row-fluid">
-            <div class="container-fluid" style="margin: auto; margin-top: 200px;">
-                <div class="row-fluid" style="justify-content: center; text-align: center;">
-                    <!-- Display success or error messages -->
-                    <?php if (isset($successMsg)) : ?>
-                        <p id="msg" style="color: green;"><?php echo $successMsg; ?></p>
-                    <?php endif; ?>
-        
-                    <?php if (isset($errorMsg)) : ?>
-                        <p id="msg" style="color: red;"><?php echo $errorMsg; ?></p>
-                    <?php endif; ?>
-        
-                    <div class="row">
-                        <div class="col-md" style="justify-content: center; text-align: left; padding: 50px;">
-                            <!-- Order details panale -->
-                            <h3>Order Details</h3>
-                
-                            <label for="txtUserID_SearchOrder">Enter User ID to select the order list:</label><br>
-                            <input type="text" class="form-control" name="userIdSearchOrder" id="txtUserID_SearchOrder"><br><br>
-                            <label for="txtOrderID_SearchOrder">Enter Order ID to select the order list:</label><br>
-                            <input type="text" class="form-control" name="orderIdSearchOrder" id="txtOrderID_SearchOrder"><br><br>
-                            <div class="row">
-                                <div class="col"><select class="form-control" id="yearOrder"></select></div>
-                                <div class="col"><select class="form-control" id="monthOrder"></select></div>
-                                <div class="col"><select class="form-control" id="dateOrder"></select></div>
-                                <div class="col"><button class="form-control" id="deleteButtonOrder" style="background-color: black; color: white;">Delete Orders</button></div>
-                            </div>
-                        </div>
-            
-                        <div class="col-md" style="padding: 50px;  margin-bottom: 60px;">
-                            <div class="row" style="height: 50px; margin-bottom: 60px;">
-                                <!-- Invoice requesting panale -->
-                                <h2>Request Invoice</h2><br><br><br>
-        
-                                <form action="invoice.php" method="post">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <input type="text" class="form-control" name="orderID" id="orderID" placeholder="Enter order ID">
-                                        </div>
-                                        <div class="col-4">
-                                            <button type="submit" class="form-control" style="background-color: black; color: white;">Get Invoice</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div><br><br>
-                            
-                            <div class="row" style="height: 40px;">
-                                <!-- Available stock update panale -->
-                                <h2>Available Stock</h2>
-                    
-                                <form action="admin.php" method="post">
-                                    <label for="current_stock">Current Stock:</label>
-                                    <b><?php echo $stock_data['available_stock']; ?> kg</b><br><br>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <input type="number" class="form-control" id="new_stock" name="new_stock" min="0" placeholder="New Stock (in kg)" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button type="submit" class="form-control" name="update_stock" style="background-color: black; color: white;">Update Stock</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <br><br>
-                    <!-- Order table -->
-                    <div class="scrollable-table">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Order ID</th>
-                                    <th scope="col">User ID</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Address Line 1</th>
-                                    <th scope="col">Address Line 2</th>
-                                    <th scope="col">Verification Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBodyOrder">
-                                <!-- Table content will be dynamically populated here -->
-                            </tbody>
-                        </table><br><br><br>
-                    </div>
-        
-                    <div class="row">
-                        <div class="col-md-6" style="margin: 20px; margin-top: 35px; text-align: left;">
-                            <!-- User details search panale -->
-                            <h3>User Details</h3>
-                
-                            <div class="row">
-                                <label for="txtUserID_SearchUser">Enter User ID to select the user list:</label><br>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" name="userIdSearchUser" id="txtUserID_SearchUser"><br><br>
-                                </div>
-                                <div class="col-4">
-                                    <button class="form-control" id="deleteButtonUser" style="background-color: black; color: white;">Delete User</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- User table -->
-                    <div class="scrollable-table">
-                        <table  class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">User ID</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">NIC</th>
-                                    <th scope="col">Telephone Number</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBodyUser">
-                                <!-- Table content will be dynamically populated here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    
-        <div class="row-fluid">
-            <nav class="navbar navbar-expand-lg navbar-custom" id="footer">
-                <div class="container-fluid d-flex justify-content-between align-items-center" style="text-align: right; padding-right: 30px;">
-                    <div class="col" style="font-size: 25px; font-weight: bolder; color: white;">Contact Us<br>
-                    <a href="mailto:your-email@example.com" style="color: white; font-size: 15px; text-decoration: none;">
-                        dilthira@gmail.com
-                        <img src="Styles/Images/icons/mail-outline.svg" alt="email" class="logoo">
-                    </a>
-                    <br>
-                    <a href="tel:+9434567890" style="color: white; font-size: 15px; text-decoration: none;">
-                        +94 345 67890
-                        <img src="Styles/Images/icons/call-outline.svg" alt="call" class="logoo">
-                    </a>
-                    <br>
-                    <a href="https://www.facebook.com/yourprofile" target="_blank" style="color: white; font-size: 15px; text-decoration: none;">
-                        Facebook
-                        <img src="Styles/Images/icons/logo-facebook.svg" alt="facebook" class="logoo">
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <script src="Styles/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>
-style="background-color: black; color: white;"

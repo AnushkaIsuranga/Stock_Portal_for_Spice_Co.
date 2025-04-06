@@ -26,5 +26,5 @@
     $_SESSION['user_name'] = htmlspecialchars($user_row['U_Name']);
 
     // Include the HTML file
-    include 'index.html';
+    include 'user.html';
 ?>
